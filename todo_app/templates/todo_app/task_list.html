@@ -1,13 +1,23 @@
+{% extends 'todo_app/main.html' %}
+
+{% block content %}
+<div class="header">
 {% if request.user.is_authenticated %}
     <p>{{ request.user }}</p>
     <a href="{% url 'logout' %}">Logout</a>
 {% else %}
     <a href="{% url 'login' %}">Login</a>
 {% endif %}
+</div>
 <hr>
 
 <h1>To Do List</h1>
 <a href="{% url 'task-create' %}">Add task</a>
+<form method="GET">
+    <input type="text" name="search-area" value="{{ search_input }}">
+    <input type="submit" value="Search">
+</form>
+
 <table>
     <tr>
         <th>Item</th>
@@ -24,3 +34,5 @@
         <h3>No items</h3>
     {% endfor %}
 </table>
+
+{% endblock content %}
